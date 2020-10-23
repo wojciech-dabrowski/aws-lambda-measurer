@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Threading.Tasks;
 using Amazon.Lambda;
 using Amazon.Lambda.Model;
@@ -33,12 +34,16 @@ namespace AwsLambdaMeasurer
                 {
                     var request = new InvokeRequest
                     {
-                        FunctionName = _config.LambdaFunctionName
+                        FunctionName = _config.LambdaFunctionName,
+                        LogType = LogType.Tail,
+                        InvocationType = InvocationType.RequestResponse
                     };
 
                     var response = await _lambdaClient.InvokeAsync(request);
 
-                    var metadata = response.ResponseMetadata.Metadata;
+                    var data = Convert.FromBase64String(response.LogResult);
+                    var base64Decoded = Encoding.ASCII.GetString(data);
+                    // TODO: Parse metrics
                 }
             }
 

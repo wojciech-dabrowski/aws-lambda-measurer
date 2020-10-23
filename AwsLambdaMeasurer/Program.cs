@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Amazon.Lambda;
 using Amazon.Runtime.CredentialManagement;
 
@@ -12,7 +13,12 @@ namespace AwsLambdaMeasurer
             var profileSource = new SharedCredentialsFile();
             profileSource.TryGetProfile(config.ProfileName, out var credentialProfile);
             var credentials = credentialProfile.GetAWSCredentials(profileSource);
-            var lambdaClient = new AmazonLambdaClient(credentials);
+            var lambdaClient = new AmazonLambdaClient(credentials, new AmazonLambdaConfig
+            {
+                Timeout = TimeSpan.FromMinutes(15),
+                MaxErrorRetry = 0
+            });
+
             var logger = new ConsoleLogger();
             var measurer = new MeasureService(config, lambdaClient, logger);
             var reportFactory = new ReportFactory();
