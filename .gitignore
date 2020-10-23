@@ -265,3 +265,4 @@ __pycache__/
 
 # .teamcity Kotlin DSL generation outputs
 .teamcity/target/
+appsettings.local.json

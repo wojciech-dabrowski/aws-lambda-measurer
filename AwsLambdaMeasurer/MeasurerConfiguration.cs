@@ -6,6 +6,7 @@ namespace AwsLambdaMeasurer
     {
         public string LambdaFunctionName { get; set; }
         public string ProfileName { get; set; }
+        public int InvocationsPerMemorySize { get; set; }
         public IEnumerable<int> MemoriesMeasured { get; set; }
     }
 }
