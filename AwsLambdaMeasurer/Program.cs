@@ -20,7 +20,8 @@ namespace AwsLambdaMeasurer
             });
 
             var logger = new ConsoleLogger();
-            var measurer = new MeasureService(config, lambdaClient, logger);
+            var parser = new AwsLambdaLogResultParser();
+            var measurer = new MeasureService(config, lambdaClient, logger, parser);
             var reportFactory = new ReportFactory();
             var reportWriter = new ReportWriter();
 
