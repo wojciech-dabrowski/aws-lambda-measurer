@@ -54,7 +54,7 @@ REPORT RequestId: b0efb1d6-da45-407c-b1ce-5b727b8d5014	Duration: 141810.39 ms	Bi
             AwsLambdaInvocationMetrics expectedMetrics)
         {
             // Given
-            var logResultBase64 = logResult.ToBase64String();
+            var logResultBase64 = logResult.EncodeBase64();
             var parser = new AwsLambdaLogResultParser();
 
             // When
@@ -76,7 +76,7 @@ REPORT RequestId: b0efb1d6-da45-407c-b1ce-5b727b8d5014	Duration: 141810.39 ms	Bi
         {
             // Given
             const string invalidLog = "This is an invalid LogResult without metrics.";
-            var invalidLogBase64 = invalidLog.ToBase64String();
+            var invalidLogBase64 = invalidLog.EncodeBase64();
             var parser = new AwsLambdaLogResultParser();
 
             // When
